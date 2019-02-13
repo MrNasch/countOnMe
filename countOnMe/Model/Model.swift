@@ -59,44 +59,35 @@ class Calculator {
     }
     // PEMDAS
     func calculateTotal() -> Double {
-        var Operand: Double = 0
-        var Operation = ""
         var total: Double = 0
-        
-        func performOperation(operand: Double, operation: String, total: Double) -> Double {
-            switch operation {
-            case "+":
-                return operand + total
-            case "-":
-                return operand - total
-            default:
-                return total
-            }
-        }
-        //while stringNumbers.count < 1 {}
-        for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Double(stringNumber) {
-                switch operators[i] {
-                case "+":
-                    total = performOperation(operand: Operand, operation: Operation, total: total)
-                    Operand = total
-                    Operation = "+"
-                    total = number
-                case "-":
-                    total = performOperation(operand: Operand, operation: Operation, total: total)
-                    Operand = total
-                    Operation = "-"
-                    total = number
-                case "/":
-                    total /= number
-                case "*":
-                    total *= number
-                default: ()
+        while stringNumbers.count < 1 {
+            print(stringNumbers)
+            if let indexOfDivOrMul = operators.firstIndex(where: { $0 == "*" || $0 == "/"}) {
+                let preOp = stringNumbers[indexOfDivOrMul - 1]
+                let nextOp = stringNumbers[indexOfDivOrMul]
+                let op = operators[indexOfDivOrMul]
+                if op == "*" {
+                    total = Double(preOp)! * Double(nextOp)!
+                } else {
+                    total = Double(preOp)! / Double(nextOp)!
                 }
-            }
+                stringNumbers[indexOfDivOrMul - 1] = "\(total)"
+                stringNumbers.remove(at: indexOfDivOrMul)
+                operators.remove(at: indexOfDivOrMul)
+            } else if let index = operators.lastIndex(where: { $0 == "+" || $0 == "-"}) {
+                let preOp = stringNumbers[index - 1]
+                let nextOp = stringNumbers[index]
+                let op = operators[index]
+                if op == "+" {
+                    total = Double(preOp)! + Double(nextOp)!
+                } else {
+                    total = Double(preOp)! - Double(nextOp)!
+                }
+                stringNumbers[index - 1] = "\(total)"
+                stringNumbers.remove(at: index)
+                operators.remove(at: index)
         }
-        // return total
-        total = performOperation(operand: Operand, operation: Operation, total: total)
+    }
         return total
     }
     func clear() {

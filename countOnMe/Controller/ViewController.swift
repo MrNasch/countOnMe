@@ -87,10 +87,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func equal() {
-        alerts()
         updateDisplay()
         let total = calculator.calculateTotal()
-        textView.text! = "\(Double(total))"
+        textView.text! = "\(total)"
         calculator.clear()
     }
     func updateDisplay() {
