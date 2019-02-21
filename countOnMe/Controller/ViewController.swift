@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         case 14:
             multiply()
         case 15:
-            calculator.calculateTotal()
+            equal()
         default:
             break
         }
