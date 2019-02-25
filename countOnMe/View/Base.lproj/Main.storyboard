@@ -212,7 +212,6 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="equal" destination="BYZ-38-t0r" eventType="touchUpInside" id="rHF-7s-zDj"/>
                                             <action selector="tappedOpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Cl-Di-6SX"/>
                                         </connections>
                                     </button>

@@ -10,9 +10,9 @@ import Foundation
 
 class Calculator {
     // MARK: - Properties
-    var stringNumbers: [String] = []
+    var stringNumbers: [String] = [String()]
     var operators = ["+"]
-    var index = 0
+    
     var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -24,11 +24,13 @@ class Calculator {
         }
         return true
     }
-    // 4 x 5 + 3 x 3 ==> Origin
-    //  20   + 3 x 3 ==> Step 1
-    //  20   +   9   ==> Step2
-    //      29       ==> final
     
+    enum AppError: Error {
+        case divideByZero
+        case cannotAddOpe
+        case ExpressionIsNotCorrect
+    }
+
     var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -40,14 +42,12 @@ class Calculator {
     // MARK: - Methods
     
     
-    func addOperator(_ op: String) -> Bool {
-        if canAddOperator {
-            operators.append(op)
-            stringNumbers.append("")
-        } else {
-            return false
+    func addOperator(_ op: String) throws {
+        guard canAddOperator else {
+            throw AppError.ExpressionIsNotCorrect
         }
-        return true
+        operators.append(op)
+        stringNumbers.append("")
     }
     
     func addNewNumber(_ newNumber: Int) {
@@ -58,14 +58,19 @@ class Calculator {
         }
     }
     // PEMDAS
-    func calculateTotal() -> Double {
-        var total: Double = 0
-        while stringNumbers.count < 1 {
-            print(stringNumbers)
+    func calculateTotal() throws -> Double {
+        guard isExpressionCorrect else {
+            throw AppError.ExpressionIsNotCorrect
+        }
+        while stringNumbers.count > 1 {
             if let indexOfDivOrMul = operators.firstIndex(where: { $0 == "*" || $0 == "/"}) {
                 let preOp = stringNumbers[indexOfDivOrMul - 1]
                 let nextOp = stringNumbers[indexOfDivOrMul]
                 let op = operators[indexOfDivOrMul]
+                var total: Double
+                if Int(nextOp) == 0 {
+                    throw AppError.divideByZero
+                }
                 if op == "*" {
                     total = Double(preOp)! * Double(nextOp)!
                 } else {
@@ -78,6 +83,7 @@ class Calculator {
                 let preOp = stringNumbers[index - 1]
                 let nextOp = stringNumbers[index]
                 let op = operators[index]
+                var total: Double
                 if op == "+" {
                     total = Double(preOp)! + Double(nextOp)!
                 } else {
@@ -88,11 +94,22 @@ class Calculator {
                 operators.remove(at: index)
         }
     }
-        return total
+        return Double(stringNumbers[0])!
     }
     func clear() {
         stringNumbers = [String()]
         operators = ["+"]
-        index = 0
+    }
+    var operationDisplay: String {
+        var text = ""
+        for (i, stringNumber) in stringNumbers.enumerated() {
+            // Add operator
+            if i > 0 {
+                text += operators[i]
+            }
+            // Add number
+            text += stringNumber
+        }
+        return text
     }
 }
