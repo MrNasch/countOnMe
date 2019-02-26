@@ -89,6 +89,8 @@ class ViewController: UIViewController {
             calculator.clear()
         } catch Calculator.AppError.divideByZero {
             alerts(title: "Division by zero", message: "You cannot divide by zero!")
+            calculator.clear()
+            updateDisplay()
         } catch {
             //Necessary but not used
         }
