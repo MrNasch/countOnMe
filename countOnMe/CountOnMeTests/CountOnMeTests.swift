@@ -7,27 +7,51 @@
 //
 
 import XCTest
+@testable import CountOnMe
 
 class CountOnMeTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    var calculator = Calculator()
+    
+    func testGivenFirstNumberIsSeven_WhenAdditionningWithNumberEight_ThenTotalIsFiveTeen() {
+        calculator.addNewNumber(7)
+        
+        try! calculator.addOperator("+")
+        calculator.addNewNumber(8)
+        
+        XCTAssertEqual(try calculator.calculateTotal(), 15)
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testGivenFirstNumberIsFive_WhenSoustractionWithNumberTwo_ThenTotalIsThree() {
+        calculator.addNewNumber(5)
+        
+        try! calculator.addOperator("-")
+        calculator.addNewNumber(2)
+        
+        XCTAssertEqual(try calculator.calculateTotal(), 3)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGivenFirstNumberIsFour_WhenMultiplyWithNumberTwo_ThenTotalIsEight() {
+        calculator.addNewNumber(4)
+        
+        try! calculator.addOperator("*")
+        calculator.addNewNumber(2)
+        
+        XCTAssertEqual(try calculator.calculateTotal(), 8)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testGivenFirstNumberIsFive_WhenDivideWithNumberTwo_ThenTotalIsTwoPointFive() {
+        calculator.addNewNumber(5)
+        
+        try! calculator.addOperator("/")
+        calculator.addNewNumber(2)
+        
+        XCTAssertEqual(try calculator.calculateTotal(), 2.5)
     }
-
+//    func testGivenAppLaunchedWhenPressNumberButtonThenUpdateDisplay() {
+//
+//        calculator.stringNumbers = ["1"]
+//        try! calculator.addOperator("/")
+//        calculator.stringNumbers = ["0"]
+//
+//
+//        XCTAssertThrowsError(try calculator.calculateTotal())
+//
+//    }
 }

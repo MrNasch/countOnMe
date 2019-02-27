@@ -11,7 +11,7 @@ import Foundation
 class Calculator {
     // MARK: - Properties
     var stringNumbers: [String] = [String()]
-    var operators = ["+"]
+    var operators: [String] = ["+"]
     
     var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
@@ -29,6 +29,7 @@ class Calculator {
         case divideByZero
         case cannotAddOpe
         case ExpressionIsNotCorrect
+        case calculateIsEmpty
     }
 
     var canAddOperator: Bool {
@@ -44,7 +45,7 @@ class Calculator {
     
     func addOperator(_ op: String) throws {
         guard canAddOperator else {
-            throw AppError.ExpressionIsNotCorrect
+            throw AppError.cannotAddOpe
         }
         operators.append(op)
         stringNumbers.append("")
@@ -60,7 +61,11 @@ class Calculator {
     // PEMDAS
     func calculateTotal() throws -> Double {
         guard isExpressionCorrect else {
-            throw AppError.ExpressionIsNotCorrect
+            if stringNumbers.count == 1 {
+                throw AppError.calculateIsEmpty
+            } else {
+                throw AppError.ExpressionIsNotCorrect
+            }
         }
         while stringNumbers.count > 1 {
             if let indexOfDivOrMul = operators.firstIndex(where: { $0 == "*" || $0 == "/"}) {

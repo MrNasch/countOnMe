@@ -38,49 +38,25 @@ class ViewController: UIViewController {
             try calculator.addOperator(op)
             updateDisplay()
         } catch Calculator.AppError.cannotAddOpe {
-            alerts(title: "Expression incorrect", message: "Must add a numer before operator")
+            alerts(title: "Expression incorrect", message: "Must add a numer after an operator")
         } catch {
             //Necessary but not used
         }
     }
     @IBAction func multiply() {
-        do {
-            try calculator.addOperator("*")
-        } catch Calculator.AppError.cannotAddOpe {
-            alerts(title: "Cannot add operato", message: "Must add number before operator")
-        } catch {
-            // Necessary but not used
-        }
+        addOpe("*")
     }
     
     @IBAction func divide() {
-        do {
-            try calculator.addOperator("/")
-        } catch Calculator.AppError.cannotAddOpe {
-            alerts(title: "Cannot add operato", message: "Must add number before operator")
-        } catch {
-            // Necessary but not used
-        }
+        addOpe("/")
     }
 
     @IBAction func plus() {
-        do {
-            try calculator.addOperator("+")
-        } catch Calculator.AppError.cannotAddOpe {
-            alerts(title: "Cannot add operato", message: "Must add number before operator")
-        } catch {
-            // Necessary but not used
-        }
+        addOpe("+")
     }
 
     @IBAction func minus() {
-        do {
-            try calculator.addOperator("-")
-        } catch Calculator.AppError.cannotAddOpe {
-            alerts(title: "Cannot add operato", message: "Must add number before operator")
-        } catch {
-            // Necessary but not used
-        }
+        addOpe("-")
     }
     @IBAction func equal() {
         do {
@@ -91,6 +67,8 @@ class ViewController: UIViewController {
             alerts(title: "Division by zero", message: "You cannot divide by zero!")
             calculator.clear()
             updateDisplay()
+        } catch Calculator.AppError.calculateIsEmpty {
+            alerts(title: "Calculate is Empty", message: "Must add operation")
         } catch {
             //Necessary but not used
         }
