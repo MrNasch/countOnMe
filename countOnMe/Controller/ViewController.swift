@@ -19,20 +19,24 @@ class ViewController: UIViewController {
     @IBOutlet var operators: [UIButton]!
     
     // MARK: - Action
+    // Add operator
     @IBAction func tappedOpButton(_ sender: UIButton) {
         addOpe(sender.titleLabel?.text ?? "")
     }
+    // Add numer and update the display
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         let textButton = sender.titleLabel?.text ?? ""
         guard let value = Int(textButton) else { return }
         calculator.addNewNumber(value)
         updateDisplay()
     }
+    // alerts
     func alerts(title: String, message: String) {
             let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
     }
+    // Verify if we can add operator
     func addOpe(_ op: String) {
         do {
             try calculator.addOperator(op)
@@ -43,21 +47,23 @@ class ViewController: UIViewController {
             //Necessary but not used
         }
     }
+    // Multiply
     @IBAction func multiply() {
         addOpe("*")
     }
-    
+    //Divide
     @IBAction func divide() {
         addOpe("/")
     }
-
+    // Addition
     @IBAction func plus() {
         addOpe("+")
     }
-
+    // Soustraction
     @IBAction func minus() {
         addOpe("-")
     }
+    // Try to calculate and throws Error if there is
     @IBAction func equal() {
         do {
             let total = try calculator.calculateTotal()
@@ -74,6 +80,7 @@ class ViewController: UIViewController {
         }
         
     }
+    // Update text on display
     func updateDisplay() {
         textView.text = calculator.operationDisplay
     }

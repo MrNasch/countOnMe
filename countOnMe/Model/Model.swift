@@ -24,14 +24,14 @@ class Calculator {
         }
         return true
     }
-    
+    // Error enumeration
     enum AppError: Error {
         case divideByZero
         case cannotAddOpe
         case ExpressionIsNotCorrect
         case calculateIsEmpty
     }
-
+    // Property Can addOperation
     var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -42,7 +42,7 @@ class Calculator {
     }
     // MARK: - Methods
     
-    
+    // Add operation if we can
     func addOperator(_ op: String) throws {
         guard canAddOperator else {
             throw AppError.cannotAddOpe
@@ -50,7 +50,7 @@ class Calculator {
         operators.append(op)
         stringNumbers.append("")
     }
-    
+    // Add Number
     func addNewNumber(_ newNumber: Int) {
         if let stringNumber = stringNumbers.last {
             var stringNumberMutable = stringNumber
@@ -58,7 +58,7 @@ class Calculator {
             stringNumbers[stringNumbers.count-1] = stringNumberMutable
         }
     }
-    // PEMDAS
+    // Perform calcul with priority of operation
     func calculateTotal() throws -> Double {
         guard isExpressionCorrect else {
             if stringNumbers.count == 1 {
@@ -101,10 +101,12 @@ class Calculator {
     }
         return Double(stringNumbers[0])!
     }
+    //Clear the calculate
     func clear() {
         stringNumbers = [String()]
         operators = ["+"]
     }
+    // display on the calculator
     var operationDisplay: String {
         var text = ""
         for (i, stringNumber) in stringNumbers.enumerated() {
