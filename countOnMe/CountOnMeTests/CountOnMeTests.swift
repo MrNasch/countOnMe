@@ -11,12 +11,7 @@ import XCTest
 
 class CountOnMeTests: XCTestCase {
     var calculator = Calculator()
-    enum AppError: Error {
-        case divideByZero
-        case cannotAddOpe
-        case ExpressionIsNotCorrect
-        case calculateIsEmpty
-    }
+    
     
     func testGivenIfMultiPlyAndOrDivision_WhenCalculateTotalWithAdditionAndOrSoustraction_ThenDoMultiplyAndDivisionBeforeAdditionSoustraction() {
         calculator.addNewNumber(6)
@@ -42,8 +37,9 @@ class CountOnMeTests: XCTestCase {
         XCTAssert(calculator.operators == ["+"])
     }
     func testGivenWantToPerformOperation_WhenDivideByZero_ThenThrowErrorDivideByZero() {
-        calculator.stringNumbers = ["0"]
+        calculator.addNewNumber(4)
         try! calculator.addOperator("/")
+        calculator.addNewNumber(0)
 
         XCTAssertThrowsError(try calculator.calculateTotal())
     }
@@ -61,5 +57,13 @@ class CountOnMeTests: XCTestCase {
         } catch {
             XCTAssertThrowsError(try calculator.calculateTotal())
         }
+    }
+    func testGiventot_Whento_Thento() {
+        calculator.addNewNumber(3)
+        try! calculator.addOperator("+")
+        calculator.addNewNumber(3)
+        try! calculator.addOperator("+")
+        
+        XCTAssertThrowsError(try calculator.calculateTotal())
     }
 }

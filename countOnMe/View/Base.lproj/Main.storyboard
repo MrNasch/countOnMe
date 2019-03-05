@@ -213,7 +213,6 @@
                                         </state>
                                         <connections>
                                             <action selector="equal" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZPD-Hz-Ama"/>
-                                            <action selector="tappedOpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Cl-Di-6SX"/>
                                         </connections>
                                     </button>
                                 </subviews>
