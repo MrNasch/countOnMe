@@ -58,7 +58,7 @@ class CountOnMeTests: XCTestCase {
             XCTAssertThrowsError(try calculator.calculateTotal())
         }
     }
-    func testGiventot_Whento_Thento() {
+    func testGivenOperationWithNoNumberAfterOperationt_WhenClickingEqual_ThenThrowErrorExpressionIncorrect() {
         calculator.addNewNumber(3)
         try! calculator.addOperator("+")
         calculator.addNewNumber(3)
